@@ -1,26 +1,31 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 
-const Navigation = () => {
-  const [date, setDate] = useState(Date.now().toString());
-  const [dateChange, setDateChange] = useState(false);
-  console.log(date);
+const Navigation = ({ urlDate, reqDate }) => {
+	const [ date, setDate ] = useState(reqDate);
+	const handleSubmit = e => {
+		e.preventDefault();
+		setDate(e.target.value);
+		urlDate(e.target.value);
+	};
 
-  useEffect(()=> {
-    setDateChange(true);
-  },[date]);
-  console.log(dateChange);
-  return (
-    <nav className='font-display bg-primary'>
-      <div
-        className='container mx-auto flex justify-between items-center h-20 px-12'>
-        <h3 className='text-white'>Digital Solutions by Don</h3>
-        <form>
-          <input type='date' value={date} onChange={e=>setDate(e.target.value)}
-                 className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' />
-        </form>
-        <p className='text-white'>Images provided by Nasa</p>
-      </div>
-    </nav>);
+	useEffect(() => setDate(reqDate), [ reqDate ]);
+
+	return (
+		<nav className='font-display bg-primary'>
+			<div className='container mx-auto flex justify-between items-center h-20 px-12'>
+				<h3 className='text-white text-xs sm:text-base md:text-lg lg:text-2xl xl:text-3xl'>Digital Solutions by Don</h3>
+				<form>
+					<input
+						type='date'
+						value={date}
+						onChange={handleSubmit}
+						className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+					/>
+				</form>
+				<p className='text-white hidden lg:block'>Images provided by Nasa</p>
+			</div>
+		</nav>
+	);
 };
 
 export default Navigation;

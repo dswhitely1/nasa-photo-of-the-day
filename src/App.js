@@ -9,10 +9,11 @@ import Loader from 'react-loader-spinner';
 function App() {
 	const [ loading, setLoading ] = useState(true);
 	const [ nasaData, nasaError, nasaLoading, setNasaUrl ] = useAxios('');
-
+	const changeDate = date => {
+		setNasaUrl(date);
+	};
 	useEffect(
 		() => {
-			console.log('useEffect');
 			setLoading(nasaLoading);
 		},
 		[ nasaLoading ],
@@ -26,7 +27,7 @@ function App() {
 	}
 	return (
 		<div className='App'>
-			<Navigation urlDate={setNasaUrl} />
+			<Navigation urlDate={changeDate} reqDate={nasaData.date} />
 			<MainContent data={nasaData} />
 			<Footer />
 		</div>

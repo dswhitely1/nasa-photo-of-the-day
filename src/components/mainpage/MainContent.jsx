@@ -4,12 +4,14 @@ import Image from '../imageContainer/Image';
 
 const MainContent = ({ data: { title, url, explanation, media_type, hdurl } }) => {
 	return (
-		<div className='container mx-auto px-20'>
+		<div className='container mx-auto px-2'>
 			<div className='my-5'>
-				<h1 className='text-6xl font-display text-primary'>Nasa Picture of the Day</h1>
-				<h2 className='text-5xl font-display text-primary'>{title}</h2>
+				<h1 className='text-lg sm:text-2xl md:text-4xl lg:text-5xl xl:text-6xl font-display text-primary'>
+					Nasa Picture of the Day
+				</h1>
+				<h2 className='text-base sm:text-1xl md:text-2xl lg:text-3xl xl:text-5xl font-display text-primary'>{title}</h2>
 			</div>
-			<div className={`flex ${media_type && media_type === 'image' && 'flex-col'}`}>
+			<div className={`flex flex-col items-center`}>
 				{media_type && media_type === 'video' ? (
 					<VideoPlayer url={url} />
 				) : (

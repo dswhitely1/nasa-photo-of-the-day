@@ -1,29 +1,35 @@
 import { useEffect, useState } from 'react';
-import axiosNasa from './axiosConfig';
+import axios from 'axios';
+import { api_key } from '../secrets/secret';
 
 export const useAxios = url => {
+	const [ newUrl, setNewUrl ] = useState(url);
 	const [ data, setData ] = useState('');
 	const [ error, setError ] = useState(null);
 	const [ isLoading, setIsLoading ] = useState(true);
-	console.log('useAxios');
+	const baseUrl =
+		newUrl === ''
+			? `https://api.nasa.gov/planetary/apod?api_key=${api_key}`
+			: `https://api.nasa.gov/planetary/apod?api_key=${api_key}&date=${newUrl}`;
+	const axiosRequest = axios.create({
+		baseURL : baseUrl,
+	});
 	useEffect(
 		() => {
 			setIsLoading(true);
-			axiosNasa
-				.get(url)
+			axiosRequest
+				.get()
 				.then(res => {
-					console.log(res.data);
 					setIsLoading(false);
 					setData(res.data);
 				})
 				.catch(err => {
-					console.log(err);
 					setIsLoading(false);
 					setError(err);
 				});
 		},
-		[ url ],
+		[ newUrl ],
 	);
 
-	return [ data, error, isLoading ];
+	return [ data, error, isLoading, setNewUrl ];
 };
