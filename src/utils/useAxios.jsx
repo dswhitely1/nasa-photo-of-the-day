@@ -1,19 +1,29 @@
-import {
-  useEffect,
-  useState
-} from 'react';
+import { useEffect, useState } from 'react';
 import axiosNasa from './axiosConfig';
 
 export const useAxios = url => {
-  const [data, setData]           = useState( '' );
-  const [error, setError]         = useState( null );
-  const [isLoading, setIsLoading] = useState( false );
+	const [ data, setData ] = useState('');
+	const [ error, setError ] = useState(null);
+	const [ isLoading, setIsLoading ] = useState(true);
+	console.log('useAxios');
+	useEffect(
+		() => {
+			setIsLoading(true);
+			axiosNasa
+				.get(url)
+				.then(res => {
+					console.log(res.data);
+					setIsLoading(false);
+					setData(res.data);
+				})
+				.catch(err => {
+					console.log(err);
+					setIsLoading(false);
+					setError(err);
+				});
+		},
+		[ url ],
+	);
 
-  useEffect( () => {
-    axiosNasa.get( url )
-             .then( res => setData( res.data ) )
-             .catch( err => setError( err ) );
-  }, [] );
-
-  return [data, error, isLoading];
+	return [ data, error, isLoading ];
 };
