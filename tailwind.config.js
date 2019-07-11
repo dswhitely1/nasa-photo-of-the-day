@@ -1,7 +1,16 @@
 module.exports = {
   theme: {
-    extend: {}
-  },
-  variants: {},
-  plugins: []
+    fontFamily: {
+      body: ['Michroma', 'sans-serif'],
+      display: ['Michroma', 'sans-serif']
+    },
+
+    extend  : {
+      colors: {
+        primary: '#670300'
+      }
+    },
+    variants: {},
+    plugins : []
+  }
 }

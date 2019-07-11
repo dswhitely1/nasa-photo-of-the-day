@@ -1,13 +1,18 @@
 import React from 'react';
 import './App.css';
+import Footer from './components/footer/Footer';
+import MainContent from './components/mainpage/MainContent';
+import Navigation from './components/navigation/Navigation';
 import { useAxios } from './utils/useAxios';
 
 function App() {
-	const [ nasaData, nasaError, nasaLoading ] = useAxios('');
+	const [ nasaData, nasaError, nasaLoading, setUrl ] = useAxios('');
 	console.log(nasaData, nasaError);
 	return (
 		<div className='App'>
-			<p>Read through the errors instructions in the README.md file to build your NASA app! Have fun 🚀!</p>
+			<Navigation />
+			<MainContent data={nasaData} />
+			<Footer />
 		</div>
 	);
 }
